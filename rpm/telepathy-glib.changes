@@ -1,0 +1,93 @@
+* Tue Apr 16 2013 Reto Zingg <reto.zingg@jollamobile.com> - 0.20.0
+- create -tests package for auto testing
+
+* Thu Oct 04 2012 Marko Saukko <marko.saukko@jollamobile.com> - 0.20.0
+- Update to 0.20.0
+
+* Wed Jun 06 2012 Marko Saukko <sage@merproject.org> - 0.19.5
+- Update to version 0.19.5
+- Require glib2 >= 2.32.0
+
+* Thu Dec 01 2011 Marko Saukko <marko.saukko@cybercom.com> - 0.17.3
+- Updated to version 0.17.3
+
+* Thu Nov 24 2011 Marko Saukko <marko.saukko@cybercom.com> - 0.14.5
+- Removed --enable-vala-bindings --enable-introspection.
+
+* Tue May 10 2011 Alban Crequy <alban.crequy@collabora.co.uk> - 0.14.5
+- Add --enable-vala-bindings --enable-introspection for BMC#16980
+- Add files: typelib, gir, deps, vapi
+- Add build-dependency on gobject-introspection-1.0, vala, vala-tools
+
+* Tue Apr 26 2011 Alban Crequy <alban.crequy@collabora.co.uk> - 0.14.5
+- New upstream version 0.14.5 for BMC#9615
+
+* Wed Apr 13 2011 Mikhail Zabaluev <mikhail.zabaluev@nokia.com> - 0.14.3
+- Reverted to pkgconfig.patch as all private dependencies are indeed exposed
+  in the headers.
+
+* Tue Apr 12 2011 Mikhail Zabaluev <mikhail.zabaluev@nokia.com> - 0.14.3
+- Updated to upstream release 0.14.3 (BMC#15784).
+- Updated and completed build dependencies.
+- Updated the pkgconfig patch to require only relevant packages:
+  + Added telepathy-glib-pkgconfig.patch
+  + Removed pkgconfig.patch
+- Removed undeprecate-tp-bus-get.patch: modern Telepathy components
+  should avoid tp_bus_get() or suffer; fd.o #24114 has been fixed.
+- Added the check section.
+- Improved the package description.
+- Enabled silent make rules.
+
+* Fri Mar 25 2011 wu zheng <wu.zheng@intel.com> - 0.14.1
+- Update to upstream 0.14.1 development release for supporting skype connection manager
+
+* Fri Feb 11 2011 Siraj Razick <siraj.razick@collabora.co.uk> - 0.13.13
+- BMC#13439  Update to upstream 0.13.13 development release
+
+* Mon Feb  7 2011 Siraj Razick <siraj.razick@collabora.co.uk> - 0.13.10
+- BMC#13289 Update to upstream 0.13.10 development release
+
+* Thu Dec  2 2010 Senko Rasic <senko.rasic@collabora.co.uk> - 0.13.8
+- Update to upstream 0.13.8 development release (BMC#10811)
+  + Update to telepathy-spec 0.21.6
+  + Lots of enhancements and fixes
+
+* Mon Nov 22 2010 Senko Rasic <senko.rasic@collabora.co.uk> - 0.12.4
+- Update to 0.12.4 (BMC#10301)
+- Remove the unneccessary Makefile
+
+* Tue Jul 27 2010 Huaxu Wan <huaxu.wan@linux.intel.com> - 0.11.11
+- Update to 0.11.11
+
+* Fri Jul  2 2010 Bernd Wachter <ext-bernd.wachter@nokia.com> - 0.11.8
+- Update to 0.11.8
+
+* Mon Mar  1 2010 Anas Nashif <anas.nashif@intel.com> - 0.10.0
+- Update to 0.10.0
+
+* Sun Feb 28 2010 Anas Nashif <anas.nashif@intel.com> - 0.9.1
+- Spec cleanup
+
+* Wed Dec  2 2009 Jian-feng Ding <jian-feng.ding@intel.com> 0.9.1
+- Update to 0.9.1
+
+* Wed Sep 30 2009 Rob Bradford <rob@linux.intel.com> 0.9.0
+- Update to 0.9.0
+
+* Wed Aug 26 2009 Jian-feng Ding <jian-feng.ding@intel.com> 0.7.35
+- Upgrade to version 0.7.35
+
+* Thu Apr  2 2009 Ding Jian-feng <jian-feng.ding@intel.com> 0.7.28
+- Upgrade to version 0.7.28
+
+* Wed Feb 18 2009 Ding Jian-feng <jian-feng.ding@intel.com> 0.7.26
+- Upgrade to version 0.7.26
+
+* Mon Feb  9 2009 Arjan van de Ven <arjan@linux.intel.com> 0.7.25
+- use specbuilder
+- fix hopeless "pkg-config" recursion in the .pc file
+
+* Mon Feb  9 2009 Damien Lespiau <damien.lespiau@intel.com> 0.7.25
+- Update to version 0.7.25
+- Does not require the pkg-config patch anymore as we rely on
+  pkg-config >= 0.21
