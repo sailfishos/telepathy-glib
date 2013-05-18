@@ -42,8 +42,6 @@ SubPackages:
       Description: |
           Library, headers, and other files for developing applications
           that use Telepathy-GLib.
-      Requires:
-          - telepathy-filesystem
     - Name: tests
       Summary: Tests package for %{name}
       Group: Development/Libraries

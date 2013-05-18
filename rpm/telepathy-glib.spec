@@ -41,7 +41,6 @@ including instant messaging, IRC, voice calls and video calls.
 Summary:    Development files for %{name}
 Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
-Requires:   telepathy-filesystem
 
 %description devel
 Library, headers, and other files for developing applications
@@ -114,6 +113,9 @@ rm -rf %{buildroot}
 install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/telepathy-glib/tests.xml
 install -m 0644 tests/INSIGNIFICANT $RPM_BUILD_ROOT/opt/tests/telepathy-glib/INSIGNIFICANT
 install -m 0644 tests/README $RPM_BUILD_ROOT/opt/tests/telepathy-glib/README
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/telepathy/managers
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/telepathy/clients
+mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 # << install post
 
 %post -p /sbin/ldconfig
@@ -130,6 +132,10 @@ install -m 0644 tests/README $RPM_BUILD_ROOT/opt/tests/telepathy-glib/README
 %files devel
 %defattr(-,root,root,-)
 # >> files devel
+%dir %{_datadir}/telepathy
+%dir %{_datadir}/telepathy/managers
+%dir %{_datadir}/telepathy/clients
+%dir %{_includedir}/telepathy-1.0
 %{_libdir}/libtelepathy-glib.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/telepathy-1.0/%{name}/
