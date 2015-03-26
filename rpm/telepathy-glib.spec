@@ -21,6 +21,7 @@ Patch0:     pkgconfig.patch
 Patch1:     nemo-test-packaging.patch
 Patch2:     disable-gtkdoc.patch
 Patch3:     memory-leak.patch
+Patch4:     fix-telepathy-glib-C-tests.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -79,6 +80,7 @@ programs. Some are needed for the tests.
 # disable-gtkdoc.patch
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 # >> setup
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
