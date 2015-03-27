@@ -21,7 +21,7 @@ Patch0:     pkgconfig.patch
 Patch1:     nemo-test-packaging.patch
 Patch2:     disable-gtkdoc.patch
 Patch3:     memory-leak.patch
-Patch4:     fix-telepathy-glib-C-tests.patch
+Patch4:     fix-unit-tests.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
