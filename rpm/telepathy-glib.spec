@@ -10,6 +10,7 @@ Source1:    mktests.sh
 Patch0:     nemo-test-packaging.patch
 Patch1:     disable-gtkdoc.patch
 Patch2:     memory-leak.patch
+Patch3:     group_prop_crash.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -66,6 +67,7 @@ programs. Some are needed for the tests.
 # disable-gtkdoc.patch
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 touch tests/INSIGNIFICANT
