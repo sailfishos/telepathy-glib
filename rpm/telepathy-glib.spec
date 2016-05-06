@@ -7,11 +7,10 @@ License:    LGPLv2+
 URL:        http://telepathy.freedesktop.org/wiki/
 Source0:    http://telepathy.freedesktop.org/releases/telepathy-glib/%{name}-%{version}.tar.gz
 Source1:    mktests.sh
-Patch0:     pkgconfig.patch
-Patch1:     nemo-test-packaging.patch
-Patch2:     disable-gtkdoc.patch
-Patch3:     memory-leak.patch
-Patch4:     fix-unit-tests.patch
+Patch0:     nemo-test-packaging.patch
+Patch1:     disable-gtkdoc.patch
+Patch2:     memory-leak.patch
+Patch3:     fix-unit-tests.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -63,14 +62,12 @@ programs. Some are needed for the tests.
 %prep
 %setup -q -n %{name}-%{version}/telepathy-glib
 
-# pkgconfig.patch
-%patch0 -p1
 # nemo-test-packaging.patch
-%patch1 -p1
+%patch0 -p1
 # disable-gtkdoc.patch
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 touch tests/INSIGNIFICANT
