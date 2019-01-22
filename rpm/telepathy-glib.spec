@@ -11,6 +11,7 @@ Patch0:     nemo-test-packaging.patch
 Patch1:     disable-gtkdoc.patch
 Patch2:     memory-leak.patch
 Patch3:     group_prop_crash.patch
+Patch4:     build-on-busybox.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -59,6 +60,15 @@ The %{name}-examples package contains example
 programs. Some are needed for the tests.
 
 
+%package doc
+Summary:   Documentation for %{name}
+Group:     Documentation
+Requires:  %{name} = %{version}-%{release}
+
+%description doc
+%{summary}.
+
+
 %prep
 %setup -q -n %{name}-%{version}/telepathy-glib
 
@@ -66,8 +76,12 @@ programs. Some are needed for the tests.
 %patch0 -p1
 # disable-gtkdoc.patch
 %patch1 -p1
+# memory-leak.patch
 %patch2 -p1
+# group_prop_crash.patch
 %patch3 -p1
+# build-on-busybox.patch
+%patch4 -p1
 
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 touch tests/INSIGNIFICANT
@@ -77,15 +91,10 @@ touch tests/INSIGNIFICANT
 %build
 %autogen --disable-static \
   --enable-silent-rules \
-%if 0%{?with_docs}
-  --enable-gkt-doc \
-%else
   --disable-gtk-doc \
-%endif
   --enable-installed-tests
 
-
-make %{?jobs:-j%jobs}
+make %{?_smp_mflags}
 
 tests/mktests.sh > tests/tests.xml
 
@@ -100,13 +109,16 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/telepathy/managers
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/telepathy/clients
 mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 
+mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+install -m0644 AUTHORS $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING
+%license COPYING
 %{_libdir}/libtelepathy-glib*.so.*
 
 %files devel
@@ -118,13 +130,10 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 %{_libdir}/libtelepathy-glib.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/telepathy-1.0/%{name}/
-%if 0%{?with_docs}
-%doc /usr/share/gtk-doc/html/*
-%endif
 
 %files tests
 %defattr(-,root,root,-)
-/opt/tests/%{name}/*
+/opt/tests/%{name}
 
 %files examples
 %defattr(-,root,root,-)
@@ -132,3 +141,7 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 %{_libexecdir}/telepathy-example*
 %{_datadir}/dbus-1/services/org.freedesktop.Telepathy.ConnectionManager.example*
 %{_datadir}/telepathy/managers/example*
+
+%files doc
+%defattr(-,root,root,-)
+%{_docdir}/%{name}-%{version}
