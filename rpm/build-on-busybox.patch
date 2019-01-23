@@ -1,0 +1,26 @@
+From 039e62b3d1b0241ca3ae940ea969a8909112a8ab Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tomi=20Lepp=C3=A4nen?= <tomi.leppanen@jolla.com>
+Date: Tue, 22 Jan 2019 14:22:40 +0200
+Subject: [PATCH] Use -q instead of -c for diff
+
+Allows building with busybox that doesn't support -c argument for diff.
+---
+ telepathy-glib/abi.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/telepathy-glib/abi.am b/telepathy-glib/abi.am
+index c0ae10f40..fd4e6d96d 100644
+--- a/telepathy-glib/abi.am
++++ b/telepathy-glib/abi.am
+@@ -136,7 +136,7 @@ _gen/version-script.txt: $(ABI_LISTS) _gen/abi.txt abi.am \
+ 	sed -n -e "s/^[	 ]*\\(tp_.*\\);/\\1/p" < $@ > _gen/versioned-abi.tmp
+ 	sort -u < _gen/versioned-abi.tmp > _gen/versioned-abi.txt
+ 	: # the versioned API should always match the ^tp API
+-	diff -c _gen/versioned-abi.txt _gen/abi.txt
++	diff -q _gen/versioned-abi.txt _gen/abi.txt
+ 
+ _gen/abi.txt: libtelepathy-glib-internal.la abi.am
+ 	$(NM) .libs/libtelepathy-glib-internal.a > _gen/abi.nm
+-- 
+2.20.1
+
