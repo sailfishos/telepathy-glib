@@ -12,7 +12,7 @@ diff --git a/telepathy-glib/abi.am b/telepathy-glib/abi.am
 index c0ae10f40..fd4e6d96d 100644
 --- a/telepathy-glib/abi.am
 +++ b/telepathy-glib/abi.am
-@@ -136,7 +136,7 @@ _gen/version-script.txt: $(ABI_LISTS) _gen/abi.txt abi.am \
+@@ -140,7 +140,7 @@ _gen/version-script.txt: $(ABI_LISTS) _gen/abi.txt abi.am \
  	sed -n -e "s/^[	 ]*\\(tp_.*\\);/\\1/p" < $@ > _gen/versioned-abi.tmp
  	sort -u < _gen/versioned-abi.tmp > _gen/versioned-abi.txt
  	: # the versioned API should always match the ^tp API

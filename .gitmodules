@@ -1,3 +1,3 @@
 [submodule "telepathy-glib"]
 	path = telepathy-glib
-	url = http://anongit.freedesktop.org/git/telepathy/telepathy-glib.git
+	url = https://git.sailfishos.org/mirror/telepathy-glib.git
