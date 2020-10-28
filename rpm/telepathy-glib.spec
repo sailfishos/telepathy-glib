@@ -1,17 +1,16 @@
 Name:       telepathy-glib
 Summary:    GLib bindings for Telepathy
-Version:    0.21.2
+Version:    0.24.1
 Release:    1
-Group:      System/Libraries
 License:    LGPLv2+
 URL:        http://telepathy.freedesktop.org/wiki/
-Source0:    http://telepathy.freedesktop.org/releases/telepathy-glib/%{name}-%{version}.tar.gz
+Source0:    %{name}-%{version}.tar.gz
 Source1:    mktests.sh
 Patch0:     nemo-test-packaging.patch
 Patch1:     disable-gtkdoc.patch
-Patch2:     memory-leak.patch
-Patch3:     group_prop_crash.patch
-Patch4:     build-on-busybox.patch
+Patch2:     group_prop_crash.patch
+Patch3:     build-on-busybox.patch
+Patch4:     disable-fatal-warnings.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -21,7 +20,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.32.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.32.0
 BuildRequires:  pkgconfig(gio-2.0) >= 2.32.0
 BuildRequires:  libxslt
-BuildRequires:  python
+BuildRequires:  python3-base
 
 %description
 Telepathy-GLib is a GObject-based C binding for Telepathy,
@@ -31,7 +30,6 @@ including instant messaging, IRC, voice calls and video calls.
 
 %package devel
 Summary:    Development files for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description devel
@@ -41,7 +39,6 @@ that use Telepathy-GLib.
 
 %package tests
 Summary:    Tests package for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires:   %{name}-examples
 
@@ -52,7 +49,6 @@ tests.xml for automated testing.
 
 %package examples
 Summary:    Example programs for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description examples
@@ -62,7 +58,6 @@ programs. Some are needed for the tests.
 
 %package doc
 Summary:   Documentation for %{name}
-Group:     Documentation
 Requires:  %{name} = %{version}-%{release}
 
 %description doc
@@ -70,18 +65,7 @@ Requires:  %{name} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{name}-%{version}/telepathy-glib
-
-# nemo-test-packaging.patch
-%patch0 -p1
-# disable-gtkdoc.patch
-%patch1 -p1
-# memory-leak.patch
-%patch2 -p1
-# group_prop_crash.patch
-%patch3 -p1
-# build-on-busybox.patch
-%patch4 -p1
+%autosetup -p1 -n %{name}-%{version}/telepathy-glib
 
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 touch tests/INSIGNIFICANT
@@ -94,12 +78,11 @@ touch tests/INSIGNIFICANT
   --disable-gtk-doc \
   --enable-installed-tests
 
-make %{?_smp_mflags}
+%make_build
 
 tests/mktests.sh > tests/tests.xml
 
 %install
-rm -rf %{buildroot}
 %make_install
 
 install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/telepathy-glib/tests.xml

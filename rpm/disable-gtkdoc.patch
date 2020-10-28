@@ -2,11 +2,10 @@ diff --git a/autogen.sh b/autogen.sh
 index 3184e69..82d623e 100755
 --- a/autogen.sh
 +++ b/autogen.sh
-@@ -1,7 +1,27 @@
- #!/bin/sh
- set -e
+@@ -17,9 +17,29 @@ elif automake-1.11 --version >/dev/null 2>/dev/null && \
+     export ACLOCAL
+ fi
  
--gtkdocize
 +# check if gtk-doc is explicitly disabled
 +for ag_option in $@
 +do
@@ -17,6 +16,8 @@ index 3184e69..82d623e 100755
 +  esac
 +done
 +
+ (
+     cd "$srcdir"
 +if test x$enable_gtk_doc = xno; then
 +    if test -f gtk-doc.make; then :; else
 +       echo "EXTRA_DIST = missing-gtk-doc" > gtk-doc.make
@@ -26,16 +27,17 @@ index 3184e69..82d623e 100755
 +    echo "         documentation and 'make dist' will not work."
 +    echo
 +else
-+    gtkdocize || exit $?
+     gtkdocize
 +fi
+     autoreconf -i -f
+ )
  
- if test -n "$AUTOMAKE"; then
-     : # don't override an explicit user request
+
 diff --git a/configure.ac b/configure.ac
 index 9ffa365..4d23999 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -57,7 +57,13 @@ AM_PROG_MKDIR_P
+@@ -58,7 +58,13 @@ AM_PROG_MKDIR_P
  # pkg-config 0.21 adds CFLAGS from Requires.private, which we need
  PKG_PROG_PKG_CONFIG([0.21])
  
