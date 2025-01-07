@@ -1,16 +1,15 @@
 Name:       telepathy-glib
 Summary:    GLib bindings for Telepathy
-Version:    0.24.1
+Version:    0.24.2
 Release:    1
 License:    LGPLv2+
 URL:        http://telepathy.freedesktop.org/wiki/
 Source0:    %{name}-%{version}.tar.gz
 Source1:    mktests.sh
-Patch0:     nemo-test-packaging.patch
-Patch1:     disable-gtkdoc.patch
-Patch2:     group_prop_crash.patch
-Patch3:     build-on-busybox.patch
-Patch4:     disable-fatal-warnings.patch
+Patch1:     0001-Adjust-test-installation-path.patch
+Patch2:     0002-Disable-gtk-doc.patch
+Patch3:     0003-Use-q-instead-of-c-for-diff.patch
+Patch4:     0004-Use-readlink-f-which-is-supported-by-busybox.patch
 Requires:   glib2 >= 2.32.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -100,12 +99,10 @@ install -m0644 AUTHORS $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %license COPYING
 %{_libdir}/libtelepathy-glib*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %dir %{_datadir}/telepathy
 %dir %{_datadir}/telepathy/managers
 %dir %{_datadir}/telepathy/clients
@@ -115,16 +112,13 @@ install -m0644 AUTHORS $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %{_includedir}/telepathy-1.0/%{name}/
 
 %files tests
-%defattr(-,root,root,-)
 /opt/tests/%{name}
 
 %files examples
-%defattr(-,root,root,-)
 %{_bindir}/telepathy-example*
 %{_libexecdir}/telepathy-example*
 %{_datadir}/dbus-1/services/org.freedesktop.Telepathy.ConnectionManager.example*
 %{_datadir}/telepathy/managers/example*
 
 %files doc
-%defattr(-,root,root,-)
 %{_docdir}/%{name}-%{version}
