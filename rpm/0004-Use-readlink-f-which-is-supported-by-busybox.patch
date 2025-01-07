@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Pekka Vuorela <pekka.vuorela@jolla.com>
+Date: Tue, 7 Jan 2025 13:41:30 +0200
+Subject: [PATCH] Use readlink -f which is supported by busybox
+
+---
+ tests/dbus/run-test.sh.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tests/dbus/run-test.sh.in b/tests/dbus/run-test.sh.in
+index c9ecb6cb5..1f6c8ab8f 100644
+--- a/tests/dbus/run-test.sh.in
++++ b/tests/dbus/run-test.sh.in
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+-script_fullname=`readlink -e "@tpglibtestsdir@/run-test.sh"`
+-if [ `readlink -e "$0"` != "$script_fullname" ] ; then
++script_fullname=`readlink -f "@tpglibtestsdir@/run-test.sh"`
++if [ `readlink -f "$0"` != "$script_fullname" ] ; then
+   echo "This script is meant to be installed at $script_fullname"
+   exit 1
+ fi
